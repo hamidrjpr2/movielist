@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie List</title>
+    <link rel="stylesheet" href="styles/output.css">
+    <link rel="stylesheet" href="fonts/fontAwesome/css/all.min.css">
+</head>
+<body>
+    <div id="errors" class="z-[50000] font-mono items-center py-4 px-5 md:px-20 duration-[1s] ease-in-out invisible opacity-0 [transform:translate(-50%,-50%)scale(0)] flex flex-col absolute left-1/2 top-1/2 w-9/12 md:w-5/12 lg:w-3/12 2xl:w-2/12 bg-white rounded-xl shadow-2xl">
+        <h5 class="font-bold text-xl">
+            This is Error
+        </h5>
+        <button id="error-btn" class="hovery btn bg-negetiveColor text-white rounded-md py-3 px-8 text-xl font-bold my-5 duration-300">Close</button>
+    </div>
+    <!-- more Pop-up div -->
+    <!-- -->
+    <div id="more-menu" class="items-center py-4 px-5 md:px-20 duration-[1s] ease-in-out invisible opacity-0 [transform:translate(-50%,-50%)scale(0)] flex flex-col absolute z-40 left-1/2 top-1/2 w-11/12 md:w-10/12 lg:w-7/12 2xl:w-5/12 bg-white rounded-xl shadow-2xl">
+        <figure class="aspect-[9/6] w-[300px]">
+            <img class="poster w-full object-cover rounded-lg" src="" alt="">
+        </figure>
+        <!-- Casts -->
+        <div class="casts w-full flex flex-col items-center mt-5 pb-2 px-5 border-b-2 border-b-[#0000009c]">
+            <h5 class="font-headFont">Casts</h5>
+            <h4 class="cast-content font-mono text-lg mt-2"></h4>
+        </div>
+        <!-- Summary -->
+        <div class="casts w-full flex flex-col items-center mt-5 pb-2 px-5 border-b-2 border-b-[#0000009c]">
+            <h5 class="font-headFont">Summary</h5>
+            <h4 class="summary-content font-mono text-lg mt-2"></h4>
+        </div>
+        <button id="more-close" class="more-btn hovery btn bg-negetiveColor text-white rounded-md py-3 px-8 text-xl font-bold my-5 duration-300">Close</button>
+    </div>
+
+    <!-- Add pop-up div -->
+    <div id="add-menu" class="duration-[1s] ease-in-out invisible [transform:translate(-50%,-50%)scale(0)] opacity-0 absolute z-50 left-1/2 top-1/2  w-11/12 md:w-10/12 lg:w-7/12 2xl:w-5/12 bg-white rounded-xl shadow-2xl">
+        <div class="row py-8 px-4 justify-center">
+            <input class="fill-inputs bg-[#FEFDED] w-full md:w-[45%] lg:w-[30%] my-2 mx-2 text-black rounded-md drop-shadow-md font-mono px-2 py-4 outline-none" type="text" placeholder="Enter Movie Name">
+            <input class="fill-inputs bg-[#FEFDED] w-full md:w-[45%] lg:w-[30%] my-2 mx-2 text-black rounded-md drop-shadow-md font-mono px-2 py-4 outline-none" type="text" placeholder="Enter Genre">
+            <select class="fill-inputs bg-[#FEFDED] w-full md:w-[45%] lg:w-[30%] my-2 mx-2 text-black rounded-md drop-shadow-md font-mono px-2 py-4 outline-none" type="text" placeholder="Enter Genre">
+                <option value="Watched">Watched</option>
+                <option value="Not Watched">Not Watched</option>
+                <option value="Watching">Watching</option>
+                <option value="" selected disabled>Status</option>
+            </select>
+            <input class="fill-inputs bg-[#FEFDED] w-full md:w-[45%] lg:w-[30%] my-2 mx-2 text-black rounded-md drop-shadow-md font-mono px-2 py-4 outline-none" type="text" placeholder="Enter Year">
+            <input class="fill-inputs bg-[#FEFDED] w-full md:w-[45%] lg:w-[30%] my-2 mx-2 text-black rounded-md drop-shadow-md font-mono px-2 py-4 outline-none" type="text" placeholder="Enter Post URL">
+            <input class="fill-inputs bg-[#FEFDED] w-full md:w-[45%] lg:w-[30%] my-2 mx-2 text-black rounded-md drop-shadow-md font-mono px-2 py-4 outline-none" type="text" placeholder="Enter Casts">
+            <textarea class="fill-inputs bg-[#FEFDED] w-full my-2 mx-2 text-black rounded-md drop-shadow-md font-mono px-2 py-4 outline-none" name="" id="" placeholder="Write The Summary"></textarea>
+        </div>
+        <div class="buttos flex w-full justify-center *:mx-3 my-1">
+            <button class="hidden pop-btn hovery btn bg-positiveColor text-white rounded-md py-3 px-8 text-xl font-bold my-5 duration-300">Add</button>
+            <button class="hidden pop-btn hovery btn bg-positiveColor text-white rounded-md py-3 px-8 text-xl font-bold my-5 duration-300">Edit</button>
+            <button class="pop-btn hovery btn bg-negetiveColor text-white rounded-md py-3 px-8 text-xl font-bold my-5 duration-300">Cancel</button>
+        </div>
+    </div>
+    <main class="w-full min-h-[110vh] bg-gradient-to-r from-backColor2 to-backColor1 filter">
+        <div class="row">
+            <!-- Main Box -->
+            <div class="box overflow-hidden flex flex-col justify-center items-center mx-auto mt-5 lg:mt-40 border w-11/12 md:w-10/12 lg:w-9/12 2xl:w-8/12 rounded-[50px] bg-contColor bg-opacity-20">
+                <!-- box top part -->
+                <div class="title p-5 *:my-4 text-center mb-5">
+                    <!-- main icon -->
+                    <i class="fa-duotone fa-film text-white text-6xl "></i>
+                    <!-- main title -->
+                    <h1 class="text-white font-headFont font-extrabold text-xl">Movie List</h1>
+                </div>
+                <!-- The list container -->
+                <div class="w-full my-10 px-2 lg:px-10">
+                    <div class="lists w-full max-h-[450px] md:max-h-[300px] overflow-y-auto">
+                        <!-- <div data-index="" draggable="true" class="list flex flex-wrap justify-center md:flex-nowrap *:text-[16px] text-white font-bold font-mono rounded-xl bg-black bg-opacity-30 my-2 py-5 gap-y-2">
+                            <p class="w-3/12 md:w-2/12 mx-2 break-words flex flex-wrap flex-col items-center justify-start text-center">
+                                <span class="flex flex-wrap items-center text-center justify-center border-b mb-5">
+                                    <i class="fa-duotone fa-signature text-foreColor"></i>
+                                    <span class="ml-2 mt-2 md:mt-0 text-foreColor">Movie</span>
+                                </span>
+                                <span>Avengers End Game</span>
+                            </p>
+                            <p class="w-3/12 md:w-2/12 mx-2 break-words flex flex-wrap flex-col items-center justify-start text-center">
+                                <span class="flex flex-wrap items-center text-center justify-center border-b mb-5">
+                                    <i class="fa-duotone fa-grid-2 text-foreColor"></i>
+                                    <span class="ml-2 mt-2 md:mt-0 text-foreColor">Genre</span>
+                                </span>
+                                <span>Action, Super Hero, Drama</span>
+                            </p>
+                            <p class="w-3/12 md:w-2/12 mx-2 break-words flex flex-wrap flex-col items-center justify-start text-center">
+                                <span class="flex flex-wrap items-center text-center justify-center border-b mb-5">
+                                    <i class="fa-duotone fa-chart-simple text-foreColor"></i>
+                                    <span class="ml-2 mt-2 md:mt-0 text-foreColor">Status</span>
+                                </span>
+                                <span class="watching text-[10px] py-1 px-1 inline-block">Watching</span>
+                            </p>
+                            <div class="md:hidden w-full border-t border-[#ffffff3e]"></div>
+                            <p class="w-3/12 md:w-2/12 mx-2 break-words flex flex-wrap flex-col items-center justify-start text-center">
+                                <span class="flex flex-wrap items-center text-center justify-center border-b mb-5">
+                                    <i class="fa-duotone fa-calendar-days text-foreColor"></i>
+                                    <span class="ml-2 mt-2 md:mt-0 text-foreColor">Year</span>
+                                </span>
+                                <span>2019</span>
+                            </p>
+                            <p class="w-3/12 md:w-2/12 mx-2 break-words flex flex-wrap flex-col items-center justify-start text-center">
+                                <span class="flex flex-wrap items-center text-center justify-center border-b mb-5">
+                                    <i class="fa-duotone fa-circle-info text-foreColor"></i>
+                                    <span class="ml-2 mt-2 md:mt-0 text-foreColor">More</span>
+                                </span>
+                                <span class="cursor-pointer">...</span>
+                            </p>
+                            <p class="w-3/12 md:w-2/12 mx-2 break-words flex flex-col items-center justify-start text-center  cursor-pointer">
+                                <span class="flex flex-wrap items-center text-center justify-center border-b mb-5">
+                                    <i class="fa-duotone fa-brush text-foreColor"></i>
+                                    <span class="ml-2 mt-2 md:mt-0 text-foreColor">Action</span>
+                                </span>
+                                <span>
+                                    <i class="fa-duotone fa-pen-to-square text-positiveColor text-2xl mx-1 my-2"></i>
+                                    <i class="fa-duotone fa-trash text-negetiveColor text-2xl mx-1 my-2"></i>
+                                </span>
+                            </p>
+                        </div> -->
+                    </div>
+                </div>
+                <!-- buttons for add -->
+                <button id="btn-popup" class="hovery btn bg-positiveColor text-white rounded-md py-4 px-10 text-xl font-bold my-5 duration-300">Add</button>
+            </div>
+            <!-- end of box -->
+        </div>
+    </main>
+    <script src="js/app.js"></script>
+</body>
+</html>
