@@ -23,7 +23,7 @@
 ## 📊Status
 ### Creator : HamidReza Rajabpour
 #### ⚙️ Technology used : HTML, Css, Scss, JS
-#### 〽️ style used : `Transform` , `flex` , `bootstrap` `offset-path` `JavaScript`
+#### 〽️ style used : `Transform` , `flex` , `tailwind` `offset-path` `JavaScript`
 <br>
 
 ## 🌐Social Media
