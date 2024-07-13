@@ -287,7 +287,7 @@ function closeMovieDetailsPopup() {
 // Api ********
 const loading = document.querySelector('.loading')
 async function getMovie(name,type) {
-    const url = `http://www.omdbapi.com/?apikey=b01e97ed&${type}=${name}`
+    const url = `https://www.omdbapi.com/?apikey=b01e97ed&${type}=${name}`
     try {
         loading.setAttribute('src', 'img/load.gif')
         const response = await fetch(url)
