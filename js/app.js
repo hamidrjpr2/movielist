@@ -7,6 +7,7 @@ const inputFields = document.querySelectorAll('.fill-inputs');
 const popupButtons = document.querySelectorAll('.pop-btn');
 const errorPopup = document.getElementById('errors');
 const errorCloseButton = document.getElementById('error-btn');
+const imdb = document.querySelector('.imdb')
 
 let currentMovieIndex = 0;
 let editMovieIndex = 0;
@@ -65,7 +66,7 @@ function addNewMovie() {
     closeAddMoviePopup();
     resetMovieContainer();
     renderMovieList();
-    currentMovieIndex++;
+    // currentMovieIndex++;
 }
 
 // Event listener for editing a movie
@@ -282,3 +283,75 @@ function closeMovieDetailsPopup() {
     addMoviePopup.nextElementSibling.removeAttribute('style');
 }
 
+
+// Api ********
+const loading = document.querySelector('.loading')
+async function getMovie(name,type) {
+    const url = `http://www.omdbapi.com/?apikey=b01e97ed&${type}=${name}`
+    try {
+        loading.setAttribute('src', 'img/load.gif')
+        const response = await fetch(url)
+        const result = await response.json()
+        return result
+
+    }catch (err){
+        console.log(err)
+    }
+    finally {
+        loading.removeAttribute('src')
+    }
+
+}
+
+async function MovieSearchCreate(name,type) {
+    let hamid = await getMovie(name,type)
+    console.log(hamid)
+    imdb.style.display = 'flex'
+    hamid.Search.map((row,index) => {
+        let li = document.createElement('div')
+        li.classList.add('w-full', 'p-2', 'my-2', 'bg-[#FEFDED]', 'cursor-pointer')
+        li.setAttribute('data-index', index)
+        li.setAttribute('onclick', `selectMovie('${row.imdbID}')`)
+        li.innerHTML = `
+        <figure class="w-full items-center *:mx-1 flex flex-col text-center">
+            <img class="w-[70px] h-[70px] rounded-full object-cover" src="${row.Poster}" alt="">
+            <figcaption> ${row.Title} </figcaption>
+        </figure>
+        <h5 class="w-full flex justify-center">
+            <span>Year:</span>
+            <span>${row.Year}</span
+        </h5>
+    `
+        imdb.appendChild(li)
+    })
+}
+
+async function MovieSearchPut(imdbID) {
+    let film = await getMovie(imdbID,'i')
+    console.log(film)
+    inputFields[0].value = film.Title
+    inputFields[1].value = film.Genre
+    inputFields[3].value = film.Released
+    inputFields[4].value = film.Poster
+    inputFields[5].value = film.Actors
+    inputFields[6].value = film.Plot
+}
+
+// Api ********
+
+// IMDB button click function
+popupButtons[3].addEventListener('click', ()=> {
+    resetSearch()
+    async function resetSearch() {
+        imdb.innerHTML = ''
+        imdb.style.display = 'none'
+    }
+    MovieSearchCreate(inputFields[0].value,'s')
+})
+
+// Select Imdb Search and put it in inputFields
+async function selectMovie(imdbID) {
+    MovieSearchPut(imdbID)
+    imdb.innerHTML = ''
+    imdb.style.display = 'none'
+}
